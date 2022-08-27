@@ -1,0 +1,39 @@
+body {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 5%;
+    width: 90%;
+}
+h1 {
+    text-align: center;
+}
+#websocket_url {
+    margin-bottom: 1%;
+    width: 100%;
+}
+.side_by_side {
+    display: flex;
+    justify-content: space-between;
+    min-height: 60vh;
+    width: 100%;
+}
+.side {
+    align-items: center;
+    display: flex;
+    flex-basis: 48%;
+    flex-direction: column;
+}
+#input, #output {
+    height: 100%;
+    width: 100%;
+}
+.btns {
+    display: flex;
+    justify-content: center;
+    margin: 1%;
+    width: 100%;
+}
+button {
+    margin: 0 1%;
+}
