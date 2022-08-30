@@ -7,6 +7,10 @@ function scroll_output_to_bottom() {
 }
 
 // socket event actions
+function socket_ononopen(event) {
+    output.innerHTML += 'Successfully connected!\n\n';
+    scroll_output_to_bottom();
+}
 function socket_onmessage(event) {
     output.innerHTML += 'socket_onmessage:\n';
     let data = JSON.parse(event.data);
@@ -38,15 +42,14 @@ document.querySelector('#connect_btn').onclick = function(event) {
     try {
         socket = new WebSocket(websocket_url);
         // passing on the socket functions
+        socket.onopen = socket_ononopen;
         socket.onmessage = socket_onmessage;
         socket.onerror = socket_onerror;
         socket.onclose = socket_onclose;
-        output.innerHTML += 'Successfully connected!';
     } catch (error) {
         socket = null;
         output.innerHTML += error;
     }
-    output.innerHTML += '\n\n';
     scroll_output_to_bottom();
 }
 
@@ -54,6 +57,10 @@ document.querySelector('#connect_btn').onclick = function(event) {
 document.querySelector('#send_btn').onclick = function(event) {
     if (socket == null) {
         alert('First you need to connect to a socket!');
+        return;
+    }
+    if (socket.readyState == WebSocket.CONNECTING) {
+        alert('Socket is still connecting!');
         return;
     }
     const input = document.querySelector('#input').value;
