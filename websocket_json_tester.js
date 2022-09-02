@@ -38,6 +38,10 @@ function socket_onclose(event) {
 document.querySelector('#connect_btn').onclick = function(event) {
     const websocket_url = document.querySelector('#websocket_url').value;
 
+    if (socket != null) { // silently closes the previous socket
+        socket.onclose = null;
+        socket.close();
+    }
     output.innerHTML += 'Connecting to ' + websocket_url + '\n'
     try {
         socket = new WebSocket(websocket_url);
